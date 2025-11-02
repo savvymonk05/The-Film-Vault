@@ -3,13 +3,14 @@ import axios from 'axios'
 import MovieCard from './MovieCard'
 
 function Movies() {
-  const [movies, setMovies] = useState([])  // ✅ useState should be declared directly, not inside another function
+  const [movies, setMovies] = useState([])
 
   useEffect(() => {
-    axios.get('https://api.themoviedb.org/3/discover/movie?api_key=cde75a772c3c08f6704b95d5e6dedae3&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc')
-      .then(function(res) {
-        console.log(res.data) // ✅ check what comes from API
-        setMovies(res.data.results) // ✅ the correct key is 'results' not 'result'
+    axios
+      .get('https://api.themoviedb.org/3/discover/movie?api_key=cde75a772c3c08f6704b95d5e6dedae3&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc')
+      .then(function (res) {
+        console.log(res.data)
+        setMovies(res.data.results)
       })
       .catch(err => {
         console.error(err)
@@ -22,9 +23,12 @@ function Movies() {
         Trending Movies
       </div>
 
-      <div className='flex flex-row flex-wrap justify-around'>
+      <div className='flex flex-row flex-wrap justify-around gap-5'>
         {movies.map((movieObj) => (
-          <MovieCard key={movieObj.id} movie={movieObj} />  // ✅ pass movie data and add a unique key
+          <MovieCard 
+             
+            poster_path={movieObj.poster_path} name = {movieObj.original_title}
+          />
         ))}
       </div>
     </div>
